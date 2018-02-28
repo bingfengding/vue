@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<button>按钮1</button>
+<button>按钮2</button>
+<button>按钮3</button>
+<button>按钮4</button>
+<button>按钮5</button>
+<script>
+    //let 和 const 声明变量与常量  之前就是var
+
+    //01-作用域只局限于当前代码块
+    /*{
+     var str= "my vue";
+     console.log(str);
+
+
+     let str1 = "my let";//let只能局限于当前作用域。跨域无效。
+     console.log(str1)
+     }
+    console.log("+++++++"+ str);
+    //console.log("+++++++"+ str1);这个就会报错。
+     */
+
+    //02-使用let声明的变量作用域不会被提升
+    /*{
+        console.log(str1);  //var 的话声明会被提升，赋值的不会，所以会提示undifind
+        var str1 = "my war";
+    }*/
+
+    /*{
+        console.log(str);  //let 的作用域不会提升所以会报错
+        let str = "lisi"
+
+    }*/
+
+    /*{
+        var str1 = "zhangsan";
+        var str1 = "lisi";//同作用域里面同样声明会覆盖前面的
+        console.log(str1);
+
+        let str2 = "wangwu";
+        let str2 = "zhaoliu";
+        console.log(str2);//let 里面无法做用同样的声明，会报错
+    }
+*/
+
+    //04-for 循环体现let的父子作用域
+   /* var btns = document.querySelectorAll("button");
+    for(var i = 0;i<btns.length;i++){
+        (function (i) {  //由于执行点击的时候是异步的，所以每次点击i都是已经获取完毕了的5，而不是需要弹出的对应的。因此需要通过闭包方式传参
+            btns[i].onclick= function () {
+                alert("点击了第"+i+"个按钮")
+            }
+        }(i));
+
+    }*/
+
+    /*let btns = document.querySelectorAll("button");
+    for(let i = 0;i<btns.length;i++){
+            btns[i].onclick= function () {
+                alert("点击了第"+i+"个按钮")//由于let是只能取当前作用域的，所以会从btns[I]里面获取i。而无法去上面i里面获取
+            }
+
+    }*/
+
+   /* for(let i=0;i<5;i++){
+        let i = 20;//这里声明的i不会影响到上面的，而var的话就会影响
+        console.log(i);
+    }*/
+</script>
+<script>
+    //01-只能在当前的代码块有效
+    /*{
+        const b= "zhangsan";//只能作用域当前的代码块，var 可以在其他代码块也有效
+        console.log(b);
+
+    }*/
+    //console.log(b);
+
+    //02- 作用域不会被提升,与let一样
+
+    //03-不能重复声明
+
+    //04-声明的必须赋值
+    /*{
+     const a;
+     a = "zhangsan";
+     console.log(a);//报错
+     }*/
+   /* {
+        const a ="zhangsdan ";
+        a = "lisi";//报错
+        console.log(a);//声明的常量无法更改
+    }*/
+ /*  const obj = {
+       name : "zhangsan"
+   };
+   obj.name = "lisi";//这种声明只是声明的obj引用的地址，因此修改内部信息没影响。地址没变化。
+*/
+    //栈内存与堆内存的区别
+/*
+
+    let a = 1;//这种小的存放在栈内存中，直接存放的。如一些固定的常量，比如true,null等这些可以直接调用的都是存放在栈内存中。
+    let b = a;
+    a = 2;
+    console.log(a,b);
+
+    let c = {};//这种存放在堆内存中，引用的只是地址。
+    c.name = 1;
+    let d= c;
+    c.name = 2;
+    console.log(d.name,c.name );
+*/
+
+</script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>01-vue的全局组件</title>
+</head>
+<body>
+    <div id="app">
+        <my-data></my-data>
+        <my-data1></my-data1>
+
+
+    </div>
+    <div id="app1">
+        <my-data></my-data>
+        <my-data1></my-data1>
+    </div>
+<script src="js/vue.js"></script>
+<script>
+    //1.创建组件构造器
+    let Profile = Vue.extend({
+        //1.1 模板选项
+        template:`<div>
+               <input type="date">
+               <p>今天已经是春天了</p>
+
+        </div>`
+        });
+    let Profile1 = Vue.extend({
+        //1.1 模板选项
+        template:`<div>
+               <input type="color">
+               <p>这是颜色</p>
+
+        </div>`
+    });
+    //注册全局组件
+    Vue.component('my-data',Profile);
+    Vue.component('my-data1',Profile1);
+   /* Vue.component('my-data',{template:`<div>  //也可以直接写在里面
+               <input type="date">
+               <p>今天已经是春天了</p>
+
+        </div>`});
+
+        */
+
+    let vm = new Vue({
+        el:"#app",
+        data:{
+
+        }
+    });
+        new Vue({
+        el:"#app1",
+        data:{
+
+        }
+    })
+
+
+
+</script>
+</body>
+
+</html>

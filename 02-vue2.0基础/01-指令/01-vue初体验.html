@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>01-vue初体验</title>
+    <script src="js/vue.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <p>{{message}}</p>
+        <p>{{msg}}</p>
+    </div>
+
+    <script>
+        //创建一个Vue的实例（选项）ViewModel
+        let vm = new Vue({
+            el:'#app',//把ViewModel实例挂载道 #app
+            //       el表示Vue要操作哪一个元素下面的区域，比如：#app则表示操作id为app的元素下面的区域；
+            data:{//vue中的model->数据
+                // data表示Vue实例的数据对象，data的属性能够响应数据的变化；每个 Vue 实例都会代理其 data 对象里所有的属性。
+                msg:'i hunger',
+                message:'hello,world!',
+            }
+        });
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>09-vue多层组件通信</title>
+</head>
+<body>
+<div id="app">
+    <myparent :imgtitle="title" :imgsrc="img"></myparent><!--单层数据可以直接传递，多层需要动态绑定，也就是需要加：-->
+
+
+</div>
+
+<template id="my-img">
+    <div>
+        <img :src="imgsrc" alt="" width="400">
+    </div>
+</template>
+<template id="my-title">
+    <div>
+       <h2>{{title}}</h2>
+    </div>
+</template>
+<template id="my_parent">
+    <div>
+        <chind1 :imgsrc="imgsrc"></chind1>
+        <chind2 :title="imgtitle"></chind2>
+    </div>
+
+</template>
+<script src="js/vue.js"></script>
+<script>
+    let Chind1=Vue.extend({
+       template:'#my-img',
+        props:['imgsrc']
+    });
+    let Chind2=Vue.extend({
+        template:'#my-title',
+        props:['title']
+    });
+    Vue.component('myparent',{
+        template:'#my_parent',
+        props:['imgsrc','imgtitle'],
+        components:{
+            chind1:Chind1,
+            chind2:Chind2,
+        }
+    });
+    let vm = new Vue({
+        el:"#app",
+        data:{
+            title:'我是否漂亮',/*数据通过实例层传递到父级，然后父级再通过动态绑定传递给子级*/
+            img:'img/01.jpg'
+        }
+    })
+
+</script>
+</body>
+</html>

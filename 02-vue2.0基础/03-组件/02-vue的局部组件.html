@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>局部组件</title>
+</head>
+<body>
+<div id="app">
+<my-data></my-data>
+<my-data1></my-data1>
+
+
+
+</div>
+<div id="app1">
+    <my-data></my-data>
+    <my-data1></my-data1>
+
+
+
+</div>
+<script src="js/vue.js"></script>
+<script>
+    //1,创建组件构造器
+    let Profile = Vue.extend({
+        template:`<div>
+               <input type="date">
+               <p>今天已经是春天了</p>
+
+        </div>`
+    });
+    let Profile1 = Vue.extend({
+        template:`<div>
+               <input type="color" id="color">
+               <p>这是颜色</p>
+
+        </div>`
+    });
+    let vm = new Vue({
+        el:"#app",
+        components:{//局部组件注册在这个钩子里面注册，注册之后只能在该el下使用
+            'my-data':Profile,
+            'my-data1':Profile1
+        },
+        data:{
+
+        },
+        methods:{
+
+        }
+    });
+    new Vue({
+        el:"#app1",
+        components:{//上1个注册只针对#app下的，所以这个就会报错
+
+        },
+        data:{
+
+        },
+        methods:{
+
+        }
+    });
+
+</script>
+</body>
+</html>

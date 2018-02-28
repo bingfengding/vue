@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>09-v-for实例</title>
+    <style>
+        table{
+            border-collapse:collapse;
+            border: 1px solid red;
+        }
+
+        td,th{
+            width: 100px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+        }
+        th{
+            color: rebeccapurple;
+            background-color: orangered;
+        }
+    </style>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <table>
+        <tr>
+            <th>姓名</th>
+            <th>年龄</th>
+            <th>性别</th>
+        </tr>
+        <tr v-for="str in table">
+            <td>{{str.name}}</td>
+            <td>{{str.age}}</td>
+            <td>{{str.sex}}</td>
+        </tr>
+
+    </table>
+
+
+</div>
+
+
+<script>
+    let vm = new Vue({
+        el:"#app",
+        data:{
+            table:[
+                {name:"lily",age:18,sex:"woman"},
+                {name:"mary",age:15,sex:"woman"},
+                {name:"lucy",age:17,sex:"woman"}
+            ]
+        }
+    })
+
+
+</script>
+</body>
+</html>

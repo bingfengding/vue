@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>06-vue的template</title>
+</head>
+<body>
+<div id="app">
+    <my-div></my-div>
+</div>
+<template id="my-div">
+    <div>
+        <div>i am boy</div>
+        <input type="date">
+        <!--出口只能有1个，所以需要将2个放到1个div里面去-->
+    </div>
+
+</template>
+<script src="js/vue.js"></script>
+<script>
+    //1,实例化组件
+    Vue.component('my-div'
+    ,{
+        template:'#my-div'
+    });
+    let vm = new Vue({
+        el:"#app",
+        data:{
+
+        }
+    })
+
+</script>
+</body>
+</html>

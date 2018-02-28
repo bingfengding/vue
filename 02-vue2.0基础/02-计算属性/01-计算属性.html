@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>01-计算属性</title>
+</head>
+<body>
+<div id="app">
+    <p>text:{{name}}</p>
+    <p>textOver:{{name.split("").reverse().join("")}}</p>
+    <p>函数调用:{{reverse()}}</p>
+    <p>计算属性:{{reverseStr}}</p>
+    <p>计算属性的get方法：{{fullName}}</p>
+    <p>计算属性的set方法：{{fullNameTwo}}</p>
+    <input type="button" value="调用set方法" @click="deal()">
+
+
+</div>
+<script src="js/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:"#app",
+        data:{
+            name:"Rose Jack",
+            firstName:"Rose",
+            lastName:"lily"
+        },
+        methods:{
+            reverse(){
+               return this.name.split("").reverse().join("");
+            },
+            deal(){
+                this.fullNameTwo = "my dark";//设置了fullNameTwo的值，所以也是调用fullNameTwo的set方法
+            }
+        },
+        //计算选项
+        computed:{
+            //计算属性默认只有 getter ，不过在需要时你也可以提供一个 setter
+    //条用直接写函数名就直接调用了属性的get方法
+            reverseStr(){
+                return this.name.split("").reverse().join("");
+            },
+            //get方法
+            fullName(){
+                return this.firstName+" "+this.lastName;
+            },
+
+            fullNameTwo:{
+                //get方法来获取值
+                get(){
+                    return this.firstName+" "+this.lastName;
+                },
+                //set方法
+                set(str){
+                    //这样就改变了里面的值，一般不会用到set方法，基本上就是使用默认的get
+                    let nameArr = str.split(" ");
+                    this.firstName = nameArr[0];
+                    this.lastName = nameArr[nameArr.length-1];
+                }
+            }
+        }
+    })
+/*计算属性 和 Methods的区别？
+ 当页面重新渲染（不是刷新）的时候，计算属性不会变化，直接读取缓存使用，适合较大量的计算和改变频率较低的属性；而method，就是当页面重新渲染的时候（页面元素的data变化，页面就会重新渲染），都会重新调用method。
+ 如果不希望有缓存，我们可以用method取代computed。
+ 疑惑：为什么需要缓存？
+ 假设我们有一个重要的计算属性 A ，这个计算属性需要一个巨大的数组遍历和做大量的计算。然后我们可能有其他的计算属性依赖于 A 。如果没有缓存，我们将不可避免的多次执行 A 的 getter ！*/
+
+    //she
+</script>
+</body>
+</html>

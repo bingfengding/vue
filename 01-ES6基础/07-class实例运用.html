@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>07-class实例</title>
+    <style>
+        body{
+          margin: 100px;
+        }
+      #canvas{
+          box-shadow: 0 0 10px #000;
+      }
+    </style>
+</head>
+<body>
+    <canvas id="canvas">当前浏览器不支持该版本</canvas>
+<script>
+    //1,获取画布
+    const canvas = document.getElementById("canvas");
+    const cxt = canvas.getContext('2d');
+    canvas.width = 1000;
+    canvas.height = 600;
+    canvas.style.backgroundColor ="black";
+
+    //2,产生类
+    class Ball{
+        constructor(x,y,color){
+            this.x = x;
+            this.y = y;
+            this.color = color;
+            this.r = 40;
+        }
+        render(){
+            cxt.save();
+            cxt.beginPath();
+            cxt.arc(this.x,this.y,this.r,0,Math.PI*2,true);
+            cxt.fillStyle = this.color;
+            cxt.closePath();
+            cxt.fill();
+            cxt.restore();
+        }
+    }
+
+    //3.移动类
+    class MoveBall extends Ball{ //extends ES6的语法，继承
+        constructor(x,y,color) {
+            super(x,y,color);//调用父类属性
+
+            //量的变化
+            this.dX = (Math.random()-0.5)*20;
+            this.dY = (Math.random()-0.5)*20;
+            this.dR = Math.random()*2+2;
+        }
+        upDate(){
+            this.x += this.dX;
+            this.y += this.dY;
+            this.r -= this.dR;
+            if(this.r<0){
+                this.r = 0;
+            }
+        }
+    }
+
+    //实例化
+    let ballArr = [];
+
+
+    //5，监听鼠标
+
+    canvas.addEventListener('mousemove',function (e) {//通过监听的方式与onmousemove比，可以监听更多的事件，能控制是冒泡还是捕获，而且不止对html有效，使用后者的话后面的会将前面的覆盖
+        //let i = Math.floor(Math.random()*colorArr.length);
+        let color ="rgb("+Math.floor(Math.random()*255)+","+Math.floor(Math.random()*255)+","+Math.floor(Math.random()*255)+")";
+        ballArr.push( new MoveBall(e.clientX-100,e.clientY-100,color));
+
+    });
+    //6.开启定时器
+
+    let timer = setInterval(function () {
+        //清除
+        cxt.clearRect(0,0,canvas.width,canvas.height);
+        //绘制
+        for(let i=0;i<ballArr.length;i++){
+            ballArr[i].render();
+            ballArr[i].upDate();
+
+        }
+        //console.log(ballArr);
+    },50)
+</script>
+</body>
+</html>

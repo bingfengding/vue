@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>symbol</title>
+</head>
+<body>
+<script>
+    //es5的对象属性名都是字符串，容易出现属性名冲突
+    //es6新引入的数据类型symbol表示独一无二的值
+    //因此属性名类型可以有2种类型了，1个是字符串，1个是symbol
+
+
+    //1.定义
+    let str1 = Symbol();
+    let str2 = Symbol();
+
+    let str3 = "";
+    let str4 = "";
+
+    console.log(str3 === str4);
+    console.log(str1 === str2);//范围false说明是不一样的值。
+
+    console.log(typeof str1);
+
+    //2.描述
+    let str5 = Symbol("name");//表示是name的描述
+    let str6 = Symbol("name");
+    console.log(str5);
+    console.log(str6);
+    console.log(str5 === str6);
+
+    //3.对象的属性名
+    const obj = {};
+   /* obj.name = "张三";
+    obj.name = "李四";//这样命名就会导致冲突
+    */
+   obj[Symbol("name")] = "王五";
+   obj[Symbol("name")] = "赵六";//这样命名就不会冲突。
+    console.log(obj);
+</script>
+</body>
+</html>

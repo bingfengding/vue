@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>数据集合set</title>
+</head>
+<body>
+<script>
+    //创建1个集合 类似于数组
+    //集合里面不会存在重复数据,所以集合可以用来去重
+    let set = new Set(['zhangsan','lisi','wangwu','wangwu']);
+    console.log(set);
+
+    //一个属性size  长度
+    console.log(set.size);
+
+    //四个方法
+    //add
+    set.add('liudehua').add('sw1w');//支持链式调用
+    console.log(set);
+
+    //delete删除对应的
+    console.log(set.delete('lisi'));
+    console.log(set);
+
+
+    //has 查找对应的
+    console.log(set.has("zhangsan"));
+
+   /* //clear 清空
+    set.clear();
+    console.log(set);
+    */
+    //keys values
+    console.log(set.keys());
+    console.log(set.values());
+</script>
+</body>
+</html>

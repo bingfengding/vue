@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>06-class的基本运用</title>
+</head>
+<body>
+<script>
+    //1.构造函数
+    function Person(name,age) {
+        this.name = name;
+        this.age = age;
+        console.log(this);
+    }
+    let p1 = Person("John",28);
+
+//4.因为构造函数也是函数，所以可以直接被调用，但是它的返回值为undefined，此时构造函数里面的this对象等于全局this对象。this.name其实就是创建一个全局的变量name。在严格模式下，当你不通过 new 调用Person构造函数会出现错误。
+
+    let p2 = new Person("lily",21);
+    console.log(p2.name);
+    //console.log(p1);这个就会报错。
+
+    //直接使用一个对象字面形式替换原型对象,
+    Person.prototype ={//prototype添加修改属性
+        sayName :function(){
+            console.log(this.name);
+        },
+        toString :function(){
+            return "[Person "+ this.name+"]" ;
+        }
+    };
+    let p3 = new Person("Mary",17);
+    console.log(p3.toString());
+    //这种方式非常流行，因为你不用多次键入Person.prototype，但有一个副作用你一定要注意：
+    console.log(p3.constructor === Object);
+    console.log(p3.constructor === Person);
+
+
+    //使用字面量形式改写了原型对象改变了构造函数的属性，因此他指向Object而不是Person。这是因为原型对象具有一个constructor属性，这是其他对象实例所没有的。当一个函数被创建时，它的prototype属性也被创建，且该原型对象的constructor属性指向该函数。当使用对象字面量形式改写原型对象时，其constructor属性将被置为泛用对象Object.为了避免这一点，需要在改写原型对象的时候手动重置constructor,如下:
+    Person.prototype ={
+        constructor :Person,
+        sayName(){
+            console.log(this.name);
+        },
+        toString(){
+            return "[Person "+ this.name+"]" ;
+        }
+    };
+    let p4 = new Person("jack",15);
+    console.log(p4.constructor === Person);
+    console.log(p4.constructor === Object);
+    console.log(p4 instanceof Person);//instanceof 运算符用来测试一个对象在其原型链中是否存在一个构造函数的 prototype 属性。
+
+    console.log(p4);
+    console.log(p3);
+
+    //2.ES6内通过class来面向对象
+    class Person1{
+        constructor(name,age){//添加属性
+            this.name = name;
+            this.age = age
+        }
+        sayName(){//添加方法
+            console.log(this.name);
+        }
+        toString(){
+            return "[Person "+ this.name+"]" ;
+        }
+    }
+    let p5 = new Person1("sea",19);
+    p5.sayName();
+
+    console.log(p5.constructor === Person1);
+    console.log(p5.constructor === Object);
+</script>
+</body>
+</html>

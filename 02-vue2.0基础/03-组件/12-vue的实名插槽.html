@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>12-vue的实名插槽</title>
+</head>
+<body>
+<div id="app">
+    <computer>
+        <div slot="emory">金士顿，威顿</div><!--设置slot为对应名称之后，只会插入对应的插槽内-->
+        <div slot="cpu">Inter,Amd</div>
+
+
+    </computer>
+
+
+</div>
+<template id="my_computer">
+    <div id="main">
+        <slot name="cpu">这里是CPU</slot><!--设置对应name之后就只能插入对应名称的插槽-->
+        <slot name="gpu">这里是GPU</slot>
+        <slot name="emory">这里是内存条</slot>
+        <slot name="drive">这里是硬盘</slot>
+    </div>
+</template>
+<script src="js/vue.js"></script>
+<script>
+    Vue.component('computer',{
+       template:'#my_computer'
+    });
+    let vm = new Vue({
+        el:"#app",
+        data:{
+
+        }
+    })
+
+</script>
+</body>
+</html>

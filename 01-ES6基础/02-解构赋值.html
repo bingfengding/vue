@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>02-解构赋值</title>
+</head>
+<body>
+<script>
+    //1,基本用法
+    //let name ="张三",age = 18,sex = "男";
+    /*let [name,age,sex] =   ['李四',16,'女'];
+    console.log(name,age,sex);*/
+
+    //对象的解构赋值
+    //对象的赋值的key必须一一对应
+    /*let {name,age,sex,friends} = {name:'zhangsan',age:25,sex:'nv',friends:[1,2,3,4,5]};
+    console.log(name,age,sex,friends[1]);*/
+
+    //数组的解构赋值
+   /* let [arr1,[arr2,arr3,[arr4,arr5]]] = [1,[2,3,[4,5]]];
+
+    console.log(arr1,arr5);*/
+
+    //04-基本类型的解构赋值
+    let [a,b,c,d,e] = "my dark";
+    //number 类型无法解构
+    console.log(a,b,c,d,e);
+
+</script>
+</body>
+</html>

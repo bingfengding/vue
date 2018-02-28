@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>08-内置对象扩展</title>
+    <style>
+        .test{
+            width: 600px;
+            height: 400px;
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+<ul>
+    <li>111111</li>
+    <li>111111</li>
+    <li>111111</li>
+    <li>111111</li>
+    <li>111111</li>
+    <li>111111</li>
+    <li>111111</li>
+    <li>111111</li>
+</ul>
+<div id="div"></div>
+<script>
+    //1，模板字符串
+    //let html = "<html><head></head><body><p>今天天气很好</p><div>适合敲代码</div></body></html>";
+
+    //ES6通过使用 ` 来实现模板字符串
+    let str = "适合敲代码";
+    let html = `<html>
+                    <head></head>
+                    <body>
+                        <p>今天天气很好</p>
+                        <div class="${'test'}">${str}</div>
+                    </body>
+                </html>`;
+
+    document.querySelector("#div").innerHTML=html;
+
+    //2.数组的扩展
+    //Array.from 将类似数组转数组
+    let arrLis = document.querySelectorAll("li");
+    console.log(Array.isArray(arrLis));
+    console.log(Array.from(arrLis));//转为数组了，但是不改变源文件
+    console.log(arrLis);
+    console.log(Array.isArray(Array.from(arrLis)));
+
+    //Array.of  转数组 将一堆排序转数组
+    console.log(Array.of(1, 2, 3, 45,'zhangsan'));
+
+    //3.对象的扩展
+
+    let name = 'zhangsan',
+        age = 18;
+    /*let obj = {   //一般写法
+        'name':name,
+        'age':age
+    };*/
+    //key 与value一样的时候，所以只需要写1个
+
+    let Person = {   //ES6写法
+        name,
+        age
+    };
+    console.log(Person);
+
+    //Object.assign();
+    let obj1 = {name:'zhangsan'};
+    let obj2 = {age:18};
+    let obj3 = {sex:'nan'};
+    let obj4 = {friends:'lisi'};
+    let obj = {};
+    //通过Object.assign合并对象
+    Object.assign(obj,obj1,obj2,obj3,obj4);
+    console.log(obj);
+
+    //延展操作符  通过...的方式来分离出来
+    //...基本上意思就是将
+    let str1 = '今天天气真的很好哟';
+    let strArr = [...str1];
+    console.log(strArr);
+
+    let student = {
+        name : "zhangsan",
+        age : 18,
+        sex : 'nan'
+    };
+
+    let Person1={...student};//组件通过这个方式来延展开
+    console.log(Person1);
+
+    //删除数组内重复数据
+    let myArr = [1,2,'zhangsan',3,2,1];
+    let mySet = new Set(myArr);
+    console.log(mySet);//通过Set集合去重
+    console.log([...mySet]);//通过延展操作符来变成数组
+
+</script>
+
+</body>
+</html>

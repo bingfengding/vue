@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>05-父子组件</title>
+</head>
+<body>
+<div id="app">
+    <parent>
+
+    </parent>
+</div>
+<script src="js/vue.js"></script>
+<script>
+    //1,子组件构造器
+    let Chind1 = Vue.extend({
+        template:`
+        <div>我是一个兵1</div>`
+    });
+    let Chind2 = Vue.extend({
+        template:`
+        <div>我是一个兵2</div>`
+    });
+
+    //2，父组件构造器
+    Vue.component('parent',{
+        components:{
+            'my-chlid1':Chind1,
+            'my-chlid2':Chind2,
+        },
+        template:`
+            <div>
+                <my-chlid1></my-chlid1>
+                <my-chlid2></my-chlid2>
+
+            </div>`
+
+    });
+    new Vue({
+        el:"#app",
+        data:{
+
+        }
+    })
+
+</script>
+</body>
+</html>

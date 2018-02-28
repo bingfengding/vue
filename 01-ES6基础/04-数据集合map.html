@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>map</title>
+</head>
+<body>
+<script>
+    //map,类似于对象,都是以键值对形式
+    //键,不光局限于字符串可以是其他类型的(包括对象)都可以当键
+    //对象(字符串-值),map(值-值)是更加完善的hash结构实现
+
+    let obj1={a:1},obj2={b:2},obj={};
+    obj.name = '张三';
+    obj[obj1] = '天空';
+    obj[obj2] = '大海';//因为对象的key只能是数值，所以传递对象会被转换为字符串，类似使用了obj1.toString()来转换为了字符串  //这里覆盖了上面的OBJ1，因为都会转换为通用object，因此二个是相同的，而被替换掉了前面的。
+    console.log(obj);
+
+    let map = new Map([
+        ['name','张三'],
+        ['age',29],
+        ['sex','男'],
+        ['length',168],
+        [obj1,'喵呜'],
+        [obj2,'aotuo好'],//map是可以通过添加非字符串来当键，所以2个是不同的。因此不会被替换
+        [[1,2],'1,2,3,4,5'],
+        ],
+
+    );
+    console.log(map);
+
+    //size  属性，长度
+
+    //set和get方法
+    //set 设置键值对
+    map.set('friends','王五');//依旧支持连缀
+    console.log(map);
+    //get获取对应key的value值
+    console.log(map.get('sex'));
+
+    //delete 删除对应的
+    map.delete(obj1);
+    console.log(map);
+    //has查找
+    console.log(map.has(obj1));
+    console.log(map.has(obj2));
+
+    //keys, 获取键，values,获取值，entries，获取2个 都是以构造器形式返回。
+    console.log(map.keys());
+    console.log(map.values());
+    console.log(map.entries());
+    //遍历
+    console.log(map);
+    map.forEach(function (index,value) {
+        console.log(index+':'+value);
+        console.log();
+    });
+    /*for(let value of map){
+        console.log(value);
+    }*/
+    //clear 清除
+    map.clear();
+    console.log(map);
+    //注意事项
+    map.set({},"hehhe");//虽然都是空对象，但是由于对象是在堆内存里面，会各自有自己的区域，所以并不是一样的。
+    map.set({},"哈哈");
+    console.log(map);
+    console.log({} == {});//会返回false，证明是不一样的
+</script>
+</body>
+</html>

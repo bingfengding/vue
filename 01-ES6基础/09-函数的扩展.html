@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>09-函数的扩展</title>
+</head>
+<body>
+<script>
+    //01-形参设置默认值
+/*    function sum(num1,num2) {
+        num1 = num1||10;
+        num2 = num2||20;
+        console.log(num1 + num2);
+    }
+    sum(10,20);
+    sum();//不传参默认设置
+    */
+//ES6中设置
+    function sum(num1=10,num2=20) {//直接形参内设置默认值
+        console.log(num1 + num2);
+    }
+    sum();
+    sum(20,30);
+    //arguments对象是比较特别的一个对象，实际上是当前函数的一个内置属性。arguments非常类似Array，但实际上又不是一个Array实例。
+    //arguments对象的长度是由实参个数而不是形参个数决定的。形参是函数内部重新开辟内存空间存储的变量，但是其与arguments对象内存空间并不重叠。对于arguments和值都存在的情况下，两者值是同步的，但是针对其中一个无值的情况下，对于此无值的情形值不会得以同步。如下：
+    function sum1(a) {
+        console.log(arguments);
+    }
+    sum1(1,2);
+    //由JavaScript中函数的声明和调用特性，可以看出JavaScript中函数是不能重载的。
+    //根据其他语言中重载的依据："函数返回值不同或形参个数不同"，我们可以得出上述结论：
+    //第一：Javascript函数的声明是没有返回值类型这一说法的；
+    //第二：JavaScript中形参的个数严格意义上来讲只是为了方便在函数中的变量操作，实际上实参已经存储在arguments对象中了。
+    //另外，从JavaScript函数本身深入理解为什么JavaScript中函数是不能重载的：在JavaScript中，函数其实也是对象，函数名是关于函数的引用，或者说函数名本身就是变量。对于如下所示的函数声明与函数表达式，其实含以上是一样的（在不考虑函数声明与函数表达式区别的前提下），非常有利于我们理解JavaScript中函数是不能重载的这一特性。
+  /*  function f(a){
+        return a + 10;
+    }
+
+    function f(a){
+        return a - 10;
+    }
+
+    // 在不考虑函数声明与函数表达式区别的前提下，其等价于如下
+
+    var f = function(a){
+        return a + 10;
+    }
+
+    var f = function(a){
+        return a - 10;
+    }
+    */
+    //arguments对象中有一个非常有用的属性：callee。arguments.callee返回此arguments对象所在的当前函数引用。在使用函数递归调用时推荐使用arguments.callee代替函数名本身。
+
+
+    //02-参数形式 延展操作符
+  function sum2() {
+        console.log(arguments.callee);
+    }
+    sum2();
+    let arr ={name:1,key:2};
+    function sum3() {
+        let result = 0;
+        //for in遍历的是数组的索引（即键名key），而for of遍历的是数组元素值(value)。
+        //for in 适合遍历对象，因为可以遍历出数组的可枚举属性，包括原型。所以不适合便利数组
+        //for of 无法循环普通的对象，不过可以配合  Object.keys(arr) 这种方式来循环
+        //Object.keys() 方法会返回一个由一个给定对象的自身可枚举属性组成的数组，数组中属性名的排列顺序和使用 for...in 循环遍历该对象时返回的顺序一致 （两者的主要区别是 一个 for-in 循环还会枚举其原型链上的属性）。
+        console.log(Object.keys(arr));
+        for(let value in arr){
+            console.log(value);
+        }
+    }
+    sum3(12);
+
+
+
+    //call 和 apply 都是为了改变某个函数运行时的 context 即上下文而存在的，换句话说，就是为了改变函数体内部 this 的指向。因为 JavaScript 的函数存在「定义时上下文」和「运行时上下文」以及「上下文是可以改变的」这样的概念。二者的作用完全一样，只是接受参数的方式不太一样。例如，有一个函数 func1 定义如下：
+    // var func1 = function(arg1, arg2) {};
+    // 就可以通过 func1.call(this, arg1, arg2); 或者 func1.apply(this, [arg1, arg2]); 来调用。其中 this 是你想指定的上下文，他可以任何一个 JavaScript 对象(JavaScript 中一切皆对象)，call 需要把参数按顺序传递进去，而 apply 则是把参数放在数组里。JavaScript 中，某个函数的参数数量是不固定的，因此要说适用条件的话，当你的参数是明确知道数量时，用 call，而不确定的时候，用 apply，然后把参数 push 进数组传递进去。当参数数量不确定时，函数内部也可以通过 arguments 这个数组来便利所有的参数。
+   // apply的一个巧妙的用处,可以将一个数组默认的转换为一个参数列表([param1,param2,param3] 转换为 param1,param2,param3) 这个如果让我们用程序来实现将数组的每一个项,来装换为参数的列表,可能都得费一会功夫,借助apply的这点特性,在ES6中可以通过...来大幅度的代替掉apply
+
+    function sum4() { //如果在不知道实参数量的时候写法
+        let result = 0;
+        for(let value of arguments){//用该方法所有参数都在arguments里面，如果不同类型还需要单独区分
+            result +=value;
+        }
+      return result;
+    }
+    console.log(sum4(10, 12, 33));
+
+    function sum5(name,...nums) { //ES6写法
+        let result = 0;
+        console.log(name);
+        for(let value of nums){
+            result +=value;
+        }
+        return result;
+    }
+    console.log(sum5("name",10, 12, 33));
+    //箭头函数
+    //()=>{}
+    let  sum6= (num1,num2)=>{
+        return num1+num2;
+    };
+    console.log(sum6(100, 300));
+    let arr3 = ['zhangsan','lisi','wanbgwu'];
+    arr3.forEach(function (value,index) {
+        console.log(value, index);
+    });
+    arr3.forEach((value,index)=>{
+        console.log(value, index);
+    });
+    function demo() {
+        setTimeout(function () {
+            console.log(this);
+        },1000)
+    }
+    let obj = {};
+    demo.call(obj);
+    function demo1(){
+        setTimeout(()=>{//使用箭头函数能正确的指向需要的this
+            console.log(this);
+        },1000)
+    }
+    let obj1 = {};
+    demo1.call(obj1);
+</script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>10-vue的自定义事件</title>
+</head>
+<body>
+<div id="app">
+
+    <num @num="allNum()"></num>
+    <num @num="allNum()"></num>
+    <num @num="allNum()"></num>
+    <num @num="allNum()"></num>
+    <num @num="allNum()"></num>
+    <p>所有按钮总点击次数{{allnum}}</p>
+</div>
+<template id="num">
+    <button @click="num()">点击的次数为{{msg}}</button>
+</template>
+<script src="js/vue.js"></script>
+<script>
+    Vue.component('num',{
+        template:'#num',
+        data(){
+            return {
+                msg:0
+            }
+        },
+        methods:{
+            num(){
+                this.msg += 1;
+                //通知外界我调用了这个方法.通过emit来通知
+                this.$emit('num');
+            }
+        }
+    });
+    let vm = new Vue({
+        el:"#app",
+        data:{
+            allnum:0
+        },
+        methods:{
+            allNum(){
+               this.allnum+=1;
+
+            }
+        }
+
+    });
+
+
+
+
+</script>
+</body>
+</html>

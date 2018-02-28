@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>08-vue的组件通信</title>
+</head>
+<body>
+    <div id="app">
+        <father msg="今天要下雨" img_src="img/01.jpg"></father>
+        <hr>
+        <father msg="今天要打雷" img_src="img/02.jpg"></father>
+    </div>
+    <template id="father">
+        <div>
+            <chind1></chind1>
+            <chind2></chind2>
+            <p>{{msg}}</p>
+            <img :src='img_src' alt="" width="400">
+            <input type="date">
+        </div>
+    </template>
+    <template id="chind1">
+        <p>i am chind1</p>
+    </template>
+    <template id="chind2">
+        <p>i am chind2</p>
+    </template>
+
+    <script src="js/vue.js"></script>
+    <script>
+       /* //01，创建组件
+        let Chind1 = Vue.extend({
+            template:'#chind1',
+        });
+        let Chind2 = Vue.extend({
+            template:'#chind2',
+        });
+        //02，注册组件
+        Vue.component(
+           'father',{
+               template:'#father',
+                props:['msg','img_src'],//prop就是将属性从父级传递过来，vue里面很多情况不支持驼峰命名，因此不要写驼峰
+               components:{
+                   'chind1':Chind1,
+                   'chind2':Chind2
+               }
+
+        }
+        );*/
+
+       //上面的可以写成
+       Vue.component(
+           'father',{
+               template:'#father',
+               props:['msg','img_src'],//prop就是将属性从父级传递过来，vue里面很多情况不支持驼峰命名，因此不要写驼峰
+               components:{
+                   'chind1':{
+                       template:'#chind1'
+                   },
+                   'chind2':{
+                       template:'#chind2'
+                   },
+               }
+
+           }
+       );
+
+        let vm = new Vue({
+            el:"#app",
+            data:{
+
+            }
+        })
+
+    </script>
+</body>
+</html>

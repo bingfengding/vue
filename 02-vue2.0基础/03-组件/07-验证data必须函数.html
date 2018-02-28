@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>07-验证data选项必须函数</title>
+</head>
+<body>
+<div id="app">
+    <my-btn></my-btn>
+    <my-btn></my-btn>
+    <my-btn></my-btn>
+    <my-btn></my-btn>
+</div>
+
+
+<template id="my-btn">
+    <button @click="cont+=1">点击次数:{{cont}}</button>
+</template>
+<script src="js/vue.js"></script>
+<script>
+
+ /*   let data = {
+        cont:0
+    };
+*/
+    //1,实例化组件
+    Vue.component('my-btn',{
+        template:'#my-btn',
+        data(){
+           /* return data;//如果data不是函数，那么就会影响到其他的*/
+            return {
+                cont:0
+            }
+        }
+    });
+
+
+    let vm = new Vue({
+        el:"#app",
+        data:{
+
+        }
+    })
+
+</script>
+</body>
+</html>

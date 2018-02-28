@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>12-v-on</title>
+    <style>
+
+    </style>
+</head>
+<body>
+<div id="app">
+
+    <p :style="{color:red}">{{msg}}</p>
+    <button @click="msg='hello vue!'">改变内容</button>
+    <button @click="changeColor()">改变内容</button>
+
+</div>
+<script src="js/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:"#app",
+        data:{
+            msg:"hello world!!!",
+            red:"blue",
+
+        },
+        methods:{//methods钩子可以放实例的所有函数实现
+            changeColor(){
+                this.red ="orange"
+            }
+        }
+    })
+    //v-on 针对的事件
+    /*
+     动态地绑定一个或多个特性，或一个组件 prop 到表达式；其作用和v-bind类似。注意：如果用在普通元素上时，只能监听 原生 DOM 事件；但是如果用在自定义元素组件上时，也可以监听子组件触发的自定义事件。
+     常用的修饰符包括：
+     .stop - 调用 event.stopPropagation()；停止冒泡。
+     .prevent - 调用 event.preventDefault(); 停止监听原生事件。
+     .capture - 添加事件侦听器时使用 capture 模式。
+     .self - 只当事件是从侦听器绑定的元素本身触发时才触发回调。
+     .{keyCode | keyAlias} - 只当事件是从侦听器绑定的元素本身触发时才触发回调。
+     .once - 触发一次。
+     使用手法：
+     <!-- 方法处理器 -->
+     <button v-on:click="doThis"></button>
+     <!-- 内联语句 -->
+     <button v-on:click="doThat('hello', $event)"></button>
+     <!-- 缩写 -->
+     <button @click="doThis"></button>
+     <!-- 停止冒泡 -->
+      <button @click.stop="doThis"></button>
+     <!-- 阻止默认行为 -->
+     <button @click.prevent="doThis"></button>
+     <!-- 阻止默认行为，没有表达式 -->
+     <form @submit.prevent></form>
+     <!--  串联修饰符 -->
+     <button @click.stop.prevent="doThis"></button>
+     <!-- 键修饰符，键别名 -->
+     <input @keyup.enter="onEnter">
+     <!-- 键修饰符，键代码 -->
+     <input @keyup.13="onEnter">
+     <!-- the click event will be triggered at most once -->
+     <button v-on:click.once="doThis"></button>
+    */
+</script>
+</body>
+</html>

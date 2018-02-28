@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        fieldset>div{
+            padding: 10px;
+        }
+        fieldset input,select{
+            height: 30px;
+            -webkit-border-radius: 4px;
+            -moz-border-radius: 4px;
+            border-radius: 4px;
+            line-height: 28px;
+            font-size: 18px;
+        }
+        span{
+            font-size: 18px;
+        }
+        th{
+            background-color: orangered;
+        }
+        table{
+            border: 2px solid orangered;
+            width: 600px;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <fieldset :style="fieldSet">
+        <legend>学生录入系统</legend>
+        <div><span>姓名:</span><input type="text" placeholder="请输入姓名" v-model="newStu.name"></div>
+        <div><span>年龄:</span><input type="text" placeholder="0" v-model="newStu.age"></div>
+        <div>
+            <span>性别:</span>
+            <select name="sex" id=""  v-model="newStu.sex">
+                <option value="man">男</option>
+                <option value="woman">女</option>
+            </select>
+        </div>
+        <div><span>手机:</span><input type="text" placeholder="请输入手机号码" v-model="newStu.tel"></div>
+        <input type="button" value="添加新学生" @click="newPer()">
+    </fieldset>
+    <table>
+        <tr>
+            <th>姓名</th>
+            <th>性别</th>
+            <th>年龄</th>
+            <th>手机</th>
+            <th>删除</th>
+        </tr>
+        <tr v-for="(stu,index) in stu">
+            <td>{{stu.name}}</td>
+            <td>{{stu.sex}}</td>
+            <td>{{stu.age}}</td>
+            <td>{{stu.tel}}</td>
+            <td><input type="button" value="删除" :style="{backgroundColor:'orange',color:'white'}" @click="deleteTr(index)"></td>
+        </tr>
+    </table>
+        
+
+</div>
+<script src="js/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:"#app",
+        data:{
+            fieldSet:{
+                width:'570px',
+                border:"2px solid orange",
+                paddingBottom:"20px"
+
+            },
+            stu:[
+                {name:'lily',sex:'woman',age:17,tel:12222222222},
+                {name:'mary',sex:'woman',age:12,tel:13333333222},
+                {name:'lick',sex:'woman',age:15,tel:12244444222},
+                {name:'dre',sex:'woman',age:16,tel:12555555552},
+                {name:'dandy',sex:'woman',age:18,tel:1225556662},
+            ],
+            newStu:{name:"",sex:"woman",age:"",tel:""}
+        },
+        methods:{
+            newPer(){
+                if(this.newStu.name==''){
+                    alert("姓名不能为空");
+                    return;
+                }
+                this.stu.push(this.newStu);
+               this.newStu={
+                   name:"",sex:"女",age:"",tel:""
+               }
+            },
+            deleteTr(index){
+                this.stu.splice(index,1);
+            }
+        }
+    })
+    
+</script>
+</body>
+</html>

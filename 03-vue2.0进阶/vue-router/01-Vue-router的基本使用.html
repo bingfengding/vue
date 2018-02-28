@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>01-vue-router的基本使用</title>
+    <style>
+        body{
+            background-color: #e8e8e8;
+        }
+        a{
+            background-color: white;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <div class="header">
+        <!--路由配置-->
+        <router-link to="/html">HTML5</router-link>
+        <router-link to="/java">JAVA</router-link>
+        <router-link to="/python">PYTHON</router-link>
+    </div>
+    <div class="pan">
+        <!--路由出口-->
+        <!--路由匹配到的组件将在这里面渲染-->
+        <router-view></router-view>
+    </div>
+
+</div>
+
+<template id="h5">
+    <div>
+        <h2>HTML5学院</h2>
+        <p>这里是HTML5介绍</p>
+        <img src="img/01.jpg" alt="" width="400">
+    </div>
+</template>
+<template id="python">
+    <div>
+        <h2>python学院</h2>
+        <p>这里是python介绍</p>
+        <img src="img/02.jpg" alt="" width="400">
+    </div>
+</template>
+<template id="java">
+    <div>
+        <h2>java学院</h2>
+        <p>这里是java介绍</p>
+        <img src="img/01.jpg" alt="" width="400">
+    </div>
+</template>
+<script src="js/vue.js"></script>
+<script src="js/vue-router.js"></script>
+<script>
+    //1，创建组件
+    const Html5=Vue.extend({
+        template:"#h5"
+    });
+    const Java=Vue.extend({
+        template:"#java"
+    });
+    const Python=Vue.extend({
+        template:"#python"
+    });
+    //2，定义路由
+    const routes=[
+       {path:'/html',component:Html5},
+        {path:'/java',component:Java},
+        {path:'/python',component:Python},
+        //配置根路由
+        {path:'/',redirect:'/html'},/*redirect就是将对应的转成其他的*/
+
+    ];
+
+
+
+    //3，创建路由实例
+    const router = new VueRouter({
+        //routes:routes,//二个相同可以直接用下面的替换
+        routes
+    });
+    //04,创建实例并挂载
+    new Vue({
+        router
+    }).$mount('#app');
+</script>
+</body>
+</html>

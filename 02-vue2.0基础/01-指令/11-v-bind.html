@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>11-v-bind</title>
+    <style>
+        .orange{
+            color: beige;
+            background-color: orangered;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <img :src= "imgSrc" :alt="alt">
+    <img :src= "imgSrc1" alt="">
+    <div>
+        <p v-for="(value,index) in p" :class="index === num ? 'orange' :''">
+            {{value}}
+        </p>
+        <p :style="{backgroundColor:blue}">今天天气很好</p>
+        <p :style="red">今天天气很好</p>
+    </div>
+
+</div>
+<script src="js/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:"#app",
+        data:{
+            imgSrc :"img/01.jpg",
+            imgSrc1 :"img/02.jpg",
+            alt:"i am gay",
+            p:['ios','ui','java','c++','android'],
+            num:2,
+            blue:"blue",
+            red:"color:red"
+        }
+    })
+    //v-bind ,添加属性需要通过v-bind来绑定，可以简写为  ‘：’
+    //针对的属性，样式，类
+    /*
+     v-bind:src="imageSrc"  可以缩写： :src="imgaeSrc"
+     :class="{ red: isRed }"  或  :class="[classA, classB]" ...
+      :style="{ fontSize: size + 'px' }"  或 :style="[styleObjectA, styleObjectB]" ...
+     绑定一个有属性的对象，比如：v-bind="{ id: someProp, 'other-attr': otherProp }"
+     语法结构：v-bind:argument="expression"
+     */
+</script>
+</body>
+</html>

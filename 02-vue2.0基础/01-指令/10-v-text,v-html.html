@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>10-v-text,v-html</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <div v-text="msg">121gfg</div>
+        <div v-text="html">121gfg</div>
+        <div v-html="html">121gfg</div>
+    </div>
+
+
+<script>
+    let vm = new Vue({
+        el:"#app",
+        data:{
+            msg:"hello world!",
+            html:"<input type='text'>",
+        }
+    })
+    //v-text 将数据注入到标签内，替换掉原始文件
+    //v-html 将数据依照hmtl格式注入标签内，替换原始文件
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>11-slot插槽</title>
+</head>
+<body>
+<div id="app">
+<my_slot>
+    <img src="img/01.jpg" alt="" width="500"><!--在这里面添加内容之后，插槽的对应位置也转换为这个-->
+    <p>i love you</p>
+</my_slot>
+
+
+</div>
+
+<template id="my_slot">
+    <div id="panel">
+        <h2 class="panel_header">插槽头部</h2>
+        <!--预留1个插槽-->
+        <slot>可以替换任何标签，里面放入什么标签就是什么标签，没有就默认显示提示的内容</slot>
+        <footer>插槽的尾部</footer>
+
+    </div>
+</template>
+<script src="js/vue.js"></script>
+<script>
+    Vue.component('my_slot',{
+        template:'#my_slot'
+    })
+    let vm = new Vue({
+        el:"#app",
+        data:{
+
+        }
+    })
+
+</script>
+</body>
+</html>

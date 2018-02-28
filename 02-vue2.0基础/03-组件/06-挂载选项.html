@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>06-vue的template</title>
+</head>
+<body>
+<div id="app">
+    <my-div></my-div>
+</div>
+<template id="my-div">
+    <div>
+        <div>i am boy</div>
+        <input type="date">
+        <div>{{msg}}</div>
+        <!--出口只能有1个，所以需要将2个放到1个div里面去-->
+    </div>
+
+</template>
+<script src="js/vue.js"></script>
+<script>
+    //1,实例化组件
+    Vue.component('my-div'
+        ,{
+            template:'#my-div',
+            /*data:{//data通过这样就会报错，提示需要通过函数的形式返还,所以在实例化组件内需要通过函数形式 .因为如果不是函数，那么多次调用会相互影响
+                msg:"i am gary"
+            }*/
+            data(){
+                return {
+                    msg:"i am gary"
+                }
+            }
+        });
+    let vm = new Vue({
+        el:"#app",
+        data:{
+
+        }
+    })
+
+</script>
+</body>
+</html>
